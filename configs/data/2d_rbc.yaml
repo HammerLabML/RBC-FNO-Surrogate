@@ -1,0 +1,27 @@
+defaults:
+  - _self_
+
+data_dir: ${paths.data_dir}/2D
+ra: 1000000
+batch_size: 32
+pressure: False
+normalize: True
+
+# Data Sequence settings
+start: 200  # t=100
+end: 600    # t=300
+train_steps: 20
+test_steps: 100
+train_shift: 5
+test_shift: 50
+stride: 1
+train_downsample: 1
+test_downsample: 1
+nr_episodes_train: null
+nr_episodes_val: null
+nr_episodes_test: null
+
+# Data efficiency settings
+num_workers: 2
+pin_memory: False
+persistent_workers: True

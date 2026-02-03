@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch
 from torch import Tensor
 
-from rbc_pinn_surrogate.model.components import Autoencoder2D, KoopmanOperator
+from rbc_fno_surrogate.model.components import Autoencoder2D, KoopmanOperator
 
 
 class LRAN2DModule(pl.LightningModule):
@@ -25,10 +25,10 @@ class LRAN2DModule(pl.LightningModule):
         lr_operator: float,
         lr_autoencoder: float,
         # Misc
-        inv_transform: Callable = None,
+        denormalize: Callable = None,
     ) -> None:
         super().__init__()
-        self.save_hyperparameters(ignore=["inv_transform"])
+        self.save_hyperparameters(ignore=["denormalize"])
 
         # Model
         activation = nn.GELU
@@ -45,7 +45,7 @@ class LRAN2DModule(pl.LightningModule):
         self.loss = torch.nn.functional.mse_loss
 
         # Denormalize
-        self.denormalize = inv_transform
+        self.denormalize = denormalize
 
         # Debugging
         self.example_input_array = torch.zeros(1, input_channel, 64, 96)

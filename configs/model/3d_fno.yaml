@@ -1,0 +1,14 @@
+defaults:
+  - _self_
+
+name: fno
+
+lr: 0.001
+n_modes_xy: 14
+n_modes_z: 14
+channels: 20
+hidden_channels: 38
+in_channels: 4
+out_channels: 4
+n_layers: 6
+loss: h1

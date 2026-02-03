@@ -4,7 +4,7 @@ from torch import Tensor
 import lightning as L
 import neuralop as no
 
-import rbc_pinn_surrogate.callbacks.metrics_3d as metrics
+import rbc_fno_surrogate.callbacks.metrics_3d as metrics
 
 
 class FNO3DModule(L.LightningModule):

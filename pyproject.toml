@@ -1,7 +1,7 @@
 [project]
 name = "rbc-fno-surrogate"
 version = "1.0.0"
-description = "Add your description here"
+description = "FNO-Based Surrogate model for Rayleigh-Benard Convection"
 readme = "README.md"
 authors = [
     { email = "tmarkmann@techfak.uni-bielefeld.de" }
@@ -39,3 +39,6 @@ dev = [
 
 [tool.uv.sources]
 rbc-gym = { git = "https://github.com/HammerLabML/RBC-Gym" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rbc_fno_surrogate"]

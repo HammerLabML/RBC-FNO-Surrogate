@@ -3,7 +3,7 @@ import torch
 from torch import Tensor
 import lightning as L
 
-from rbc_pinn_surrogate.model.components.unet import UNet
+from rbc_fno_surrogate.model.components.unet import UNet
 
 
 class UNet2DModule(L.LightningModule):

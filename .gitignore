@@ -231,4 +231,4 @@ artifacts
 figs
 figures
 notebooks/results
-data/*
+data/rbc

@@ -1,0 +1,15 @@
+defaults:
+  - _self_
+
+name: lran
+
+latent_dimension: 64
+input_channel: 3
+channels: [16, 32, 64]
+kernel_size: 5
+ae_ckpt: ${paths.model_dir}/2d_ae/ra${data.ra}-${seed}.ckpt
+lambda_id: 1
+lambda_fwd: 1
+lambda_hid: 100
+lr_operator: 0.0001
+lr_autoencoder: 0.003

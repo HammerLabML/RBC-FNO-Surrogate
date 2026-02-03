@@ -1,0 +1,10 @@
+defaults:
+  - paths: default
+  - hydra: default
+  - _self_
+
+task_name: vis
+
+#path: 2D-control/train/ra10000/zero.h5
+path: 2D/train/ra1000000.h5
+episode: 0

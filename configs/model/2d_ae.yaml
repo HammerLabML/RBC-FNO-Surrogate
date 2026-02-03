@@ -1,0 +1,10 @@
+defaults:
+  - _self_
+
+name: ae
+
+latent_dimension: 64
+input_channel: 3
+channels: [16, 32, 64]
+kernel_size: 5
+lr: 0.001

@@ -1,0 +1,6 @@
+root_dir: .
+data_dir: ${paths.root_dir}/data/rbc
+log_dir: ${paths.root_dir}/logs
+model_dir: ${paths.root_dir}/models
+output_dir: ${hydra:runtime.output_dir}
+work_dir: ${hydra:runtime.cwd}

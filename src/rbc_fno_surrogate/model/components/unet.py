@@ -2,7 +2,6 @@ import copy
 import torch
 import torch.nn.functional as F
 import torch.nn as nn
-# from rbc_pinn_surrogate.utils import padding
 
 
 class MaxPool(nn.Module):

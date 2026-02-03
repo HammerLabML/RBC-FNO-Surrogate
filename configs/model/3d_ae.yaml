@@ -1,0 +1,15 @@
+defaults:
+  - _self_
+
+name: ae
+
+version: v1
+input_size: [4, 48, 32, 48]
+latent_channels: 8
+channels: [16, 32, 32, 64, 64]
+pooling: [true, false, true, false, true]
+drop_rate: 0.1
+batch_norm: True
+kernel_size: 5
+latent_kernel_size: 3
+lr: 0.001

@@ -1,0 +1,27 @@
+defaults:
+  - _self_
+
+data_dir: ${paths.data_dir}/3D
+ra: 2500
+batch_size: 8
+pressure: False
+normalize: True
+
+# Data Sequence settings
+start: 500  # t=250
+end: 1000   # t=500
+train_length: 8
+train_shift: 4
+test_length: 100
+test_shift: 50
+stride: 1
+downsample_factor: 1
+nr_episodes_train: null
+nr_episodes_val: null
+nr_episodes_test: null
+
+# Data efficiency settings
+num_workers: 2
+pin_memory: True
+persistent_workers: True
+

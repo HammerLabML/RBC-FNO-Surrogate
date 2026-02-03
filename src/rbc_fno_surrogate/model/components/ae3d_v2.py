@@ -4,7 +4,7 @@ from torch import Tensor
 from collections import OrderedDict
 from typing import Callable
 
-from rbc_pinn_surrogate.model.layers import RB3DConv, RBPooling, RBUpsampling
+from rbc_fno_surrogate.model.layers import RB3DConv, RBPooling, RBUpsampling
 
 
 class _Conv3DBlock(nn.Sequential):

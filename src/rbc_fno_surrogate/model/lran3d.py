@@ -7,11 +7,11 @@ from torch.nn.functional import mse_loss
 import torch
 from torch import Tensor
 
-from rbc_pinn_surrogate.model.components import (
+from rbc_fno_surrogate.model.components import (
     Autoencoder3D,
     KoopmanOperator,
 )
-import rbc_pinn_surrogate.callbacks.metrics_3d as metrics
+import rbc_fno_surrogate.callbacks.metrics_3d as metrics
 
 
 class LRAN3DModule(pl.LightningModule):

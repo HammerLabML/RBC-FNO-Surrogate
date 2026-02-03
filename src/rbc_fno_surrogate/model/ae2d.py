@@ -7,7 +7,7 @@ from torch.nn.functional import mse_loss
 
 from lightning.pytorch import LightningModule
 
-from rbc_pinn_surrogate.model.components import Autoencoder2D
+from rbc_fno_surrogate.model.components import Autoencoder2D
 
 
 class Autoencoder2DModule(LightningModule):
@@ -18,10 +18,10 @@ class Autoencoder2DModule(LightningModule):
         channels: List[int],
         kernel_size: int,
         lr: float,
-        inv_transform: Callable = None,
+        denormalize: Callable = None,
     ):
         super().__init__()
-        self.save_hyperparameters(ignore=["inv_transform"])
+        self.save_hyperparameters(ignore=["denormalize"])
 
         # model
         self.activation = nn.GELU
@@ -30,7 +30,7 @@ class Autoencoder2DModule(LightningModule):
         )
 
         # Denormalize
-        self.denormalize = inv_transform
+        self.denormalize = denormalize
 
         # Debugging
         self.example_input_array = torch.zeros(1, input_channel, 64, 96)

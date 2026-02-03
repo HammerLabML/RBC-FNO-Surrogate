@@ -6,7 +6,7 @@ from torch import Tensor
 from torch.nn.functional import mse_loss
 from lightning.pytorch import LightningModule
 
-from rbc_pinn_surrogate.model.components import Autoencoder3Dv2, Autoencoder3D
+from rbc_fno_surrogate.model.components import Autoencoder3Dv2, Autoencoder3D
 
 
 class Autoencoder3DModule(LightningModule):

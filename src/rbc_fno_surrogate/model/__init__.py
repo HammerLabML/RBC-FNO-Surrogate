@@ -1,7 +1,5 @@
 from .fno2d import FNO2DModule
-from .pino2d import PINO2DModule
 from .fno3d import FNO3DModule
-from .cfno2d import cFNO2DModule
 from .lran2d import LRAN2DModule
 from .lran3d import LRAN3DModule
 from .ae2d import Autoencoder2DModule

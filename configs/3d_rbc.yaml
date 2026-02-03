@@ -1,0 +1,18 @@
+defaults:
+  - paths: default
+  - hydra: default
+  - data: 3d_rbc
+  - model: 3d_fno
+  - _self_
+  - experiment: null
+  - options: null
+
+task_name: 3d_rbc
+seed: 0
+trainer:
+  max_epochs: 100
+  accelerator: auto
+  detect_anomaly: false
+
+test:
+  checkpoint: ${paths.model_dir}/3d_${model}/ra${data.ra}-${seed}.ckpt

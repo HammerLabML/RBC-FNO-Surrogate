@@ -1,0 +1,18 @@
+defaults:
+  - paths: default
+  - hydra: default
+  - data: 2d_rbc
+  - model: 2d_fno
+  - _self_
+  - experiment: null
+  - options: local
+
+task_name: 2d_rbc
+seed: 0
+trainer:
+  max_epochs: 100
+  accelerator: auto
+  detect_anomaly: false
+
+test:
+  checkpoint: ${paths.model_dir}/2d_${model}/ra${data.ra}-${seed}.ckpt

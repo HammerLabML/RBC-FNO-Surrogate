@@ -3,8 +3,8 @@ import torch
 from torch import Tensor
 import lightning as L
 
-from rbc_pinn_surrogate.model.components.unet import UNet
-import rbc_pinn_surrogate.callbacks.metrics_3d as metrics
+from rbc_fno_surrogate.model.components.unet import UNet
+import rbc_fno_surrogate.callbacks.metrics_3d as metrics
 
 
 class UNet3DModule(L.LightningModule):
@@ -49,7 +49,9 @@ class UNet3DModule(L.LightningModule):
         # return [B, C, T, H, W]
         return preds.permute(1, 2, 0, 3, 4, 5)
 
-    def model_step(self, input: Tensor, target: Tensor, stage: str) -> Dict[str, Tensor]:
+    def model_step(
+        self, input: Tensor, target: Tensor, stage: str
+    ) -> Dict[str, Tensor]:
         # get prediction
         horizon = target.shape[2]
         preds = self.multi_step(input.squeeze(dim=2), horizon)

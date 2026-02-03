@@ -1,0 +1,11 @@
+# @package _global_
+
+model:
+  version: v1
+  latent_channels: 32
+  channels: [21, 42, 42, 82, 82]
+  pooling: [true, false, true, false, true]
+  drop_rate: 0.2
+  batch_norm: True
+  kernel_size: 5
+  latent_kernel_size: 3
