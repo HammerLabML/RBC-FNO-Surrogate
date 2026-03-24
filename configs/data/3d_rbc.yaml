@@ -22,6 +22,6 @@ nr_episodes_test: null
 
 # Data efficiency settings
 num_workers: 2
-pin_memory: True
-persistent_workers: True
+pin_memory: False
+persistent_workers: False
 

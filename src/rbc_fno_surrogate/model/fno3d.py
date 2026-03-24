@@ -49,8 +49,19 @@ class FNO3DModule(L.LightningModule):
         return self.model(x)
 
     def predict(self, input: Tensor, length) -> Tensor:
+        # offload each step to CPU to avoid OOM on GPU
+        x = input.squeeze(dim=2)
+        xt = x
+        preds = []
+
         with torch.no_grad():
-            return self.multi_step(input.squeeze(dim=2), length)
+            for t in range(length):
+                y_next = self.forward(xt)
+                preds.append(y_next.cpu())
+                xt = y_next
+
+        # return [B, C, T, D, H, W]
+        return torch.stack(preds, dim=0).permute(1, 2, 0, 3, 4, 5)
 
     def multi_step(self, x: Tensor, length: int) -> Tensor:
         # x has shape [B, C, D, H, W]

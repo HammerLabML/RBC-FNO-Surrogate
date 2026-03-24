@@ -220,7 +220,7 @@ def animation_3d(
     anim_dir: str,
     anim_name: str,
     feature: Literal["T", "u", "v", "w"],
-    fps: int = 10,
+    fps: int = 5,
     rotate: bool = False,
     angle_per_sec: int = 10,
     contour_levels: int = 50,
@@ -276,11 +276,11 @@ def animation_3d(
     ax2.set_aspect("equal", adjustable="box")
     ax3.set_aspect("equal", adjustable="box")
 
-    ax1.set_title("input")
-    ax2.set_title("output")
-    ax3.set_title("difference")
+    ax1.set_title("Ground Truth")
+    ax2.set_title("Prediction")
+    ax3.set_title("Error")
 
-    bottom_text = fig.text(0.5, 0.02, "Simulation t = 0", ha="center", va="bottom")
+    bottom_text = fig.text(0.5, 0.02, "t = 0", ha="center", va="bottom")
 
     elev = 15
     ax1.view_init(elev=elev)

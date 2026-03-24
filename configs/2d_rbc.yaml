@@ -15,4 +15,4 @@ trainer:
   detect_anomaly: false
 
 test:
-  checkpoint: ${paths.model_dir}/2d_${model}/ra${data.ra}-${seed}.ckpt
+  checkpoint: ${paths.model_dir}/2d_${model.name}/ra${data.ra}-${seed}.ckpt

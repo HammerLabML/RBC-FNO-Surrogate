@@ -106,7 +106,7 @@ class PredictionVisualizer(Visualizer):
         size: List[int] = [64, 96],
         field: str = "T",
         display: bool = False,
-        fps: int = 10,
+        fps: int = 5,
     ) -> None:
         # params
         super().__init__(size=size, cmap="rainbow", display=display, fps=fps)
@@ -151,11 +151,14 @@ class PredictionVisualizer(Visualizer):
         # Axes titles
         self.axes[0].set_title("Ground Truth")
         self.axes[1].set_title("Prediction")
-        self.axes[2].set_title("Difference")
+        self.axes[2].set_title("Error")
 
         # Turn off ticks/axes
         for ax in self.axes:
             ax.set_axis_off()
+
+        # Time label below the figure
+        self.time_text = self.fig.text(0.5, 0.02, "", ha="center", va="bottom")
 
         # Single colorbar for the main field (GT/Prediction)
         # self.cbar = self.fig.colorbar(
@@ -174,10 +177,10 @@ class PredictionVisualizer(Visualizer):
         """
         if len(data) == 3:
             target, pred, t_value = data
-            self.fig.suptitle(f"t = {t_value}", fontsize=12)
+            self.time_text.set_text(f"t = {t_value}")
         else:
             target, pred = data
-            self.fig.suptitle("")
+            self.time_text.set_text("")
 
         # Update image data
         diff = pred - target

@@ -2,7 +2,7 @@ defaults:
   - _self_
 
 data_dir: ${paths.data_dir}/2D
-ra: 1000000
+ra: 3000000
 batch_size: 32
 pressure: False
 normalize: True

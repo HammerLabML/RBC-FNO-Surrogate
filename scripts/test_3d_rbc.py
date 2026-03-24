@@ -24,7 +24,7 @@ def pdf_edges_and_centers(xlim=HIST_XLIM, bins=HIST_BINS):
     return edges, centers
 
 
-@hydra.main(version_base="1.3", config_path="../configs", config_name="3d_test")
+@hydra.main(version_base="1.3", config_path="../configs", config_name="3d_rbc")
 def main(config: DictConfig):
     # device
     device = best_device()
@@ -39,21 +39,22 @@ def main(config: DictConfig):
     denorm = dm.datasets["test"].denormalize_batch
 
     # model
-    if config["model"] == "fno":
-        model = FNO3DModule.load_from_checkpoint(config["checkpoint"])
-    elif config["model"] == "lran":
-        model = LRAN3DModule.load_from_checkpoint(config["checkpoint"])
-    elif config["model"] == "unet":
-        model = UNet3DModule.load_from_checkpoint(config["checkpoint"])
+    name = config["model"]["name"]
+    if name == "fno":
+        model = FNO3DModule.load_from_checkpoint(config["test"]["checkpoint"])
+    elif name == "lran":
+        model = LRAN3DModule.load_from_checkpoint(config["test"]["checkpoint"])
+    elif name == "unet":
+        model = UNet3DModule.load_from_checkpoint(config["test"]["checkpoint"])
     model.to(device)
     model.eval()
 
     # wandb run
     wandb.init(
-        project=f"RBC-3D-{str(config['model']).capitalize()}",
+        project=f"RBC-3D-{str(name).capitalize()}",
         config=config,
         dir=output_dir,
-        tags=config["tags"],
+        tags=["test"],
     )
 
     # loop
