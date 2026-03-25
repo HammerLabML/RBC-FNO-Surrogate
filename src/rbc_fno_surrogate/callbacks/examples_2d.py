@@ -2,7 +2,7 @@ import logging
 
 import torch
 from lightning.pytorch.callbacks import Callback
-from lightning.pytorch.loggers import Logger
+from lightning.pytorch.loggers import Logger, WandbLogger
 from rbc_fno_surrogate.utils.vis_2d import sequence2video
 
 
@@ -33,6 +33,9 @@ class Examples2DCallback(Callback):
         self.log_output(outputs, 0, "test", trainer.logger)
 
     def log_output(self, outputs: dict, idx: int, stage: str, logger: Logger):
+        if not isinstance(logger, WandbLogger):
+            return
+
         # unpack sequence
         y = outputs["ground_truth"][idx].detach().cpu().numpy()
         y_hat = outputs["prediction"][idx].detach().cpu().numpy()

@@ -8,7 +8,6 @@ from lightning.pytorch.loggers import WandbLogger
 from torch import Tensor
 from torch.nn.functional import mse_loss
 import torch
-import wandb
 from rbc_fno_surrogate.data.dataset import Field3D
 
 
@@ -39,10 +38,16 @@ class Metrics3DCallback(Callback):
 
     def on_test_end(self, trainer, pl_module) -> None:
         df = pd.DataFrame(self.data)
-        im1 = self.plot_metric(df, "rmse")
-        im2 = self.plot_metric(df, "nrsse")
 
         if isinstance(trainer.logger, WandbLogger):
+            import wandb
+
+            fig1 = self.plot_metric(df, "rmse")
+            fig2 = self.plot_metric(df, "nrsse")
+            im1 = wandb.Image(fig1, caption="rmse")
+            im2 = wandb.Image(fig2, caption="nrsse")
+            plt.close(fig1)
+            plt.close(fig2)
             trainer.logger.log_table("test/Table-Metrics", dataframe=df)
             trainer.logger.log_image("test/Plot-RMSE", [im1])
             trainer.logger.log_image("test/Plot-NRSSE", [im2])
@@ -55,11 +60,7 @@ class Metrics3DCallback(Callback):
         ax.set_ylabel(metric)
         ax.set_xlabel("Time Step")
         ax.set_ylim(bottom=0, top=1)
-
-        # save as image
-        im = wandb.Image(fig, caption=metric)
-        plt.close(fig)
-        return im
+        return fig
 
 
 def rmse(pred: Tensor, target: Tensor) -> Tensor:

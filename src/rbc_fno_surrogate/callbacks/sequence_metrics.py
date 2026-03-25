@@ -6,7 +6,6 @@ from lightning.pytorch.callbacks import Callback
 from lightning.pytorch.loggers import WandbLogger
 import torch
 from torch import Tensor
-import wandb
 
 from rbc_fno_surrogate.callbacks import metrics_2d as metrics
 from rbc_fno_surrogate.data.dataset import Field2D
@@ -37,9 +36,13 @@ class SequenceMetricsCallback(Callback):
 
     def on_test_end(self, trainer, pl_module) -> None:
         df = pd.DataFrame(self.data)
-        im = self.plot_metrics(df, "nrsse")
 
         if isinstance(trainer.logger, WandbLogger):
+            import wandb
+
+            fig = self.plot_metrics(df, "nrsse")
+            im = wandb.Image(fig, caption="nrsse")
+            plt.close(fig)
             trainer.logger.log_table("test/Table-Metrics", dataframe=df)
             trainer.logger.log_image("test/Plot-NRSSE", [im])
 
@@ -91,8 +94,4 @@ class SequenceMetricsCallback(Callback):
         ax.set_ylabel(metric)
         ax.set_xlabel("Time Step")
         ax.set_ylim(bottom=0, top=0.5)
-
-        # save as image
-        im = wandb.Image(fig, caption=metric)
-        plt.close(fig)
-        return im
+        return fig

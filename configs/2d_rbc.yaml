@@ -9,6 +9,7 @@ defaults:
 
 task_name: 2d_rbc
 seed: 0
+logger: wandb  # wandb or tensorboard
 trainer:
   max_epochs: 100
   accelerator: auto

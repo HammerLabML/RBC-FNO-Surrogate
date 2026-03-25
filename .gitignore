@@ -223,6 +223,7 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,python
 
+.claude
 logs/
 data/datasets/
 wandb
@@ -232,3 +233,4 @@ figs
 figures
 notebooks/results
 data/rbc
+!.gitkeep

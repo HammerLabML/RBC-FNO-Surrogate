@@ -1,5 +1,7 @@
 import hydra
 from omegaconf import DictConfig, OmegaConf
+
+import torch
 import lightning as L
 from lightning.pytorch.callbacks import (
     EarlyStopping,
@@ -8,7 +10,7 @@ from lightning.pytorch.callbacks import (
     ModelCheckpoint,
     LearningRateMonitor,
 )
-from lightning.pytorch.loggers import WandbLogger
+from lightning.pytorch.loggers import TensorBoardLogger, WandbLogger
 
 from rbc_fno_surrogate.data import RBCDatamodule3D
 from rbc_fno_surrogate.model import (
@@ -27,6 +29,8 @@ def main(config: DictConfig):
 
     # seed
     L.seed_everything(config["seed"], workers=True)
+    if torch.cuda.is_available():
+        torch.set_float32_matmul_precision("high")
 
     # data
     dm = RBCDatamodule3D(**config["data"])
@@ -44,13 +48,19 @@ def main(config: DictConfig):
         raise ValueError(f"Unknown model name: {name}")
 
     # logger
-    logger = WandbLogger(
-        entity="sail-project",
-        project=f"RBC-3D-{name.upper()}",
-        save_dir=output_dir,
-        log_model=False,
-        tags="train",
-    )
+    if config.get("logger", "wandb") == "tensorboard":
+        logger = TensorBoardLogger(
+            save_dir=output_dir,
+            name=f"RBC-3D-{name.upper()}",
+        )
+    else:
+        logger = WandbLogger(
+            entity="sail-project",
+            project=f"RBC-3D-{name.upper()}",
+            save_dir=output_dir,
+            log_model=False,
+            tags="train",
+        )
 
     # callbacks
     callbacks = [
@@ -87,7 +97,8 @@ def main(config: DictConfig):
     trainer.test(model, datamodule=dm, ckpt_path="best")
 
     # finish logging
-    logger.experiment.finish()
+    if isinstance(logger, WandbLogger):
+        logger.experiment.finish()
 
 
 if __name__ == "__main__":

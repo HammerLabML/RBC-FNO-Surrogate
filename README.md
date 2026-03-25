@@ -6,8 +6,11 @@
 
 This repository contains the code for the paper [*Fourier neural operators as data-driven surrogates for two- and three-dimensional Rayleigh–Bénard convection*](https://doi.org/10.1016/j.neucom.2026.133201), published in Neurocomputing (2026).
 
+### 2D Rayleigh–Bénard Convection
+![2D Rayleigh–Bénard Convection](docs/2d_1e4.gif)
+
 ### 3D Rayleigh–Bénard Convection
-<video src="docs/3d.mp4" controls width="80%"></video>
+![3D Rayleigh–Bénard Convection](docs/3d.gif)
 
 <!-- TODO: Add 2D prediction video -->
 
@@ -65,14 +68,16 @@ uv sync
 Alternatively, you can use virtual environments and install this package. Dependencies are given in `pyproject.toml`. All `uv run python` commands below can be replaced by activating your virtual environment and running `python` directly.
 
 ### Data
-The simulation data can be requested from the first author. Once obtained, link the dataset directory:
-```bash
-bash data/make_link.sh /path/to/your/rbc/dataset
-```
+The simulation data is available on Hugging Face: [tmarkmann/dataset-rbc-fno](https://huggingface.co/datasets/tmarkmann/dataset-rbc-fno).
 
-- TODO: data directory structure
-- TODO: link to rbc-gym and how to create data
-- TODO: download link
+Download and link the dataset:
+```bash
+# Download from Hugging Face (requires huggingface-cli)
+huggingface-cli download tmarkmann/dataset-rbc-fno --repo-type dataset --local-dir /path/to/rbc/dataset
+
+# Symlink into the project
+bash data/make_link.sh /path/to/rbc/dataset
+```
 
 ## Usage
 
@@ -94,6 +99,12 @@ uv run python scripts/train_2d_rbc.py data.ra=1e7
 ```
 
 Available model configs: `2d_fno`, `2d_unet`, `2d_lran`, `2d_ae`, `3d_fno`, `3d_unet`, `3d_lran`, `3d_ae`.
+
+### Logging
+Experiment logging uses [Weights & Biases](https://wandb.ai/) by default. TensorBoard can be selected instead via the config:
+```bash
+uv run python scripts/train_2d_rbc.py logger=tensorboard
+```
 
 ### Testing
 ```bash

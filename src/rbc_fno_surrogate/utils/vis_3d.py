@@ -335,7 +335,7 @@ def animation_3d(
         # cbar.remove()
         # cbar = fig.colorbar(diff_faces[1], ax=ax3, orientation='vertical')
 
-        bottom_text.set_text(f"Simulation t = {frame_idx}")
+        bottom_text.set_text(f"t = {frame_idx}")
 
         # update color map limits
         set_clims(orig_faces + pred_faces, vmin, vmax)
