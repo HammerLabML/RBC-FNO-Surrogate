@@ -79,6 +79,15 @@ huggingface-cli download tmarkmann/dataset-rbc-fno --repo-type dataset --local-d
 bash data/make_link.sh /path/to/rbc/dataset
 ```
 
+Additional data can be generated using [RBC-Gym](https://github.com/HammerLabML/RBC-Gym) and its dataset generation scripts via
+```bash
+git clone https://github.com/HammerLabML/RBC-Gym
+cd RBC-Gym
+
+uv run python scripts/create_dataset_2D.py
+uv run python scripts/create_dataset_3D.py
+```
+
 ## Usage
 
 This project uses [Hydra](https://hydra.cc/) for configuration management. Default configs are defined in `configs/` and can be overridden from the command line.
